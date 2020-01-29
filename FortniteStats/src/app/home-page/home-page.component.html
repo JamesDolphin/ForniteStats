@@ -1,0 +1,15 @@
+<div class=".main-container">
+  <div class="page-header">
+    Fortnite Stats
+  </div>
+
+  <input type="file" #fileImportInput name="Match Upload" id="txtFileUpload" (change)="fileChangeListener($event)"
+        multiple accept=".csv" />
+
+  <div class="content-container" *ngIf='!loading'>
+    <div class="stat-container" *ngFor="let match of matches">
+      <app-player-stat-component [matchData]="match" [fullData]="matches"></app-player-stat-component>
+      </div>
+    </div>
+  </div>
+
