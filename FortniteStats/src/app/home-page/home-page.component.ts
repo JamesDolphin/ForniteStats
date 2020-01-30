@@ -3,7 +3,10 @@ import { ViewChild } from '@angular/core';
 import { MatchRecord } from '../models/matchRecord';
 import { PlayerRecord } from '../models/PlayerRecord';
 import { MatSort, Sort } from '@angular/material/sort';
-import { MatTableDataSource } from '@angular/material';
+import { MatTableDataSource, MatDialog, MatDialogRef } from '@angular/material';
+import { PlayerDataService } from '../services/playerData.service';
+import { PlayerDetailsComponent } from '../player-details/player-details-component';
+import { OverallStandingsComponent } from '../overall-standings/overall-standings.component';
 
 @Component({
   selector: 'app-home-page',
@@ -11,17 +14,22 @@ import { MatTableDataSource } from '@angular/material';
   styleUrls: ['./home-page.component.scss']
 })
 export class HomePageComponent {
+  constructor(
+    public playerDataService: PlayerDataService,
+    private dialog: MatDialog,
+    public dialModRef: MatDialogRef<any>
+  ) {}
   public matches: Array<MatchRecord> = [];
 
   public loading = true;
 
-
-
   @ViewChild('fileImportInput', { static: false }) fileImportInput: any;
 
-
   fileChangeListener($event: any): void {
+    console.log($event);
     this.loading = true;
+
+    this.playerDataService.matchData = [];
 
     const files = $event.srcElement.files;
 
@@ -51,7 +59,7 @@ export class HomePageComponent {
 
           match.dataSource = new MatTableDataSource(match.playerRecords);
 
-          this.matches.push(match);
+          this.playerDataService.matchData.push(match);
         };
 
         reader.onerror = function() {
@@ -147,5 +155,11 @@ export class HomePageComponent {
 
   fileReset() {
     this.fileImportInput.nativeElement.value = '';
+  }
+
+  openOverallStandings() {
+    const dialogRef = this.dialog.open(OverallStandingsComponent, {
+      panelClass: 'custom-dialog-container'
+    });
   }
 }

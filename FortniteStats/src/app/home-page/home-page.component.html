@@ -3,11 +3,19 @@
     Fortnite Stats
   </div>
 
-  <input type="file" #fileImportInput name="Match Upload" id="txtFileUpload" (change)="fileChangeListener($event)"
-        multiple accept=".csv" />
+  <div class='button-container'>
+    <div>
+      <button mat-button (click)="fileImportInput.click()">
+        <span class='button-text'>Import Matches</span>
+        <input type="file" style="display:none;" #fileImportInput name="Match Upload" id="txtFileUpload" (change)="fileChangeListener($event)"multiple accept=".csv"  />
+      </button>
+    </div>
+
+    <div *ngIf='playerDataService.matchData && playerDataService.matchData.length > 0'><button class='button-text' mat-button (click)='openOverallStandings()'>View overall standings</button></div>
+  </div>
 
   <div class="content-container" *ngIf='!loading'>
-    <div class="stat-container" *ngFor="let match of matches">
+    <div class="stat-container" *ngFor="let match of playerDataService.matchData">
       <app-player-stat-component [matchData]="match" [fullData]="matches"></app-player-stat-component>
       </div>
     </div>

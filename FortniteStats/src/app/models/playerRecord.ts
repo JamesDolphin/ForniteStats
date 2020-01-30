@@ -3,4 +3,6 @@ export interface PlayerRecord {
   placement: number;
   eliminations: number;
   score: number;
+  matchCount: number;
+  rank: number;
 }

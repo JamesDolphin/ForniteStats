@@ -1,0 +1,74 @@
+@font-face {
+  font-family: anton;
+  src: url(../../assets/font/Anton-Regular.ttf) format("opentype");
+}
+
+.main-container {
+  width: 100%;
+  height: 100%;
+  border-radius: 15px;
+}
+
+.page-header {
+  font-size: 60px;
+  text-align: center;
+  margin-bottom: 10px;
+  font-weight: 800;
+  font-family: anton;
+}
+
+.player-name {
+  border-radius: 15px 15px 0px 0px;
+  font-size: 50px;
+  text-align: center;
+  margin-bottom: 10px;
+  font-weight: 800;
+  font-family: anton;
+  background-color: rgb(157,77,187);
+  padding-top: 15px;
+  padding-bottom: 15px;
+  padding-left: 40px;
+  padding-right: 40px;
+  color: white;
+
+}
+
+.player-stats {
+  display: flex;
+  justify-content: space-between;
+  border-radius: 0px 0px 15px 15px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  padding-left: 40px;
+  padding-right: 40px;
+}
+
+.logo-text {
+  font-size: 40px;
+  font-weight: 800;
+  font-family: anton;
+}
+
+.circleBase {
+  border-radius: 50%;
+  position: relative;
+  bottom: 55px;
+  //behavior: url(PIE.htc);
+}
+
+.small-circle {
+  font-size: 35px;
+  text-align: center;
+  background-color: white;
+  z-index: 100;
+  width: 60px;
+  height: 60px;
+  box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+}
+
+
+.player-stat {
+  font-size: 20px;
+  font-family: anton;
+  margin-bottom: 5px;
+}

@@ -5,16 +5,18 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomePageComponent } from './home-page/home-page.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatTableModule, MatSortModule, MatIcon, MatIconModule, MatTooltipModule } from '@angular/material';
-import { PlayerStatComponent } from './player-stat-component/player-stat-component.component';
-import { PlayerDetailsComponent } from './player-details-component/player-details-component.component';
+import { MatTableModule, MatSortModule, MatIconModule, MatTooltipModule, MatDialogModule, MatDialogRef, MAT_DIALOG_DATA, MatButtonModule } from '@angular/material';
+import { PlayerStatComponent } from './player-stat/player-stat-component';
+import { PlayerDetailsComponent } from './player-details/player-details-component';
+import { OverallStandingsComponent } from './overall-standings/overall-standings.component';
 
 @NgModule({
    declarations: [
       AppComponent,
       HomePageComponent,
       PlayerStatComponent,
-      PlayerDetailsComponent
+      PlayerDetailsComponent,
+      OverallStandingsComponent
    ],
    imports: [
       BrowserModule,
@@ -23,11 +25,20 @@ import { PlayerDetailsComponent } from './player-details-component/player-detail
       MatTableModule,
       MatSortModule,
       MatIconModule,
-      MatTooltipModule
+      MatTooltipModule,
+      MatDialogModule,
+      MatButtonModule
    ],
-   providers: [],
+   providers: [
+    { provide: MatDialogRef, useValue: {} },
+    { provide: MAT_DIALOG_DATA, useValue: [] }
+    ],
    bootstrap: [
       AppComponent
+   ],
+   entryComponents: [
+     PlayerDetailsComponent,
+     OverallStandingsComponent
    ]
 })
 export class AppModule { }

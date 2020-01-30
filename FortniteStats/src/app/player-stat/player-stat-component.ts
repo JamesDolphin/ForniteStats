@@ -1,20 +1,21 @@
-import { Component, OnInit, Input, ViewChild } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, Inject } from '@angular/core';
 import { MatchRecord } from '../models/matchRecord';
-import { MatSort } from '@angular/material';
+import { MatSort, MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { PlayerRecord } from '../models/PlayerRecord';
 import { Router, ActivatedRoute } from '@angular/router';
 import { PlayerDataService } from '../services/playerData.service';
+import { PlayerDetailsComponent } from '../player-details/player-details-component';
 
 @Component({
   selector: 'app-player-stat-component',
-  templateUrl: './player-stat-component.component.html',
-  styleUrls: ['./player-stat-component.component.scss']
+  templateUrl: './player-stat.component.html',
+  styleUrls: ['./player-stat-component.scss']
 })
 export class PlayerStatComponent implements OnInit {
   constructor(
-    public router: Router,
     public playerDataService: PlayerDataService,
-    private route: ActivatedRoute
+    private dialog: MatDialog,
+    public dialModRef: MatDialogRef<any>
   ) {}
 
   @Input() matchData: MatchRecord;
@@ -36,8 +37,7 @@ export class PlayerStatComponent implements OnInit {
 
   goToPlayerDetail(player: PlayerRecord) {
     this.playerDataService.activePlayer = player;
-    this.fullData = this.fullData;
 
-    this.router.navigate(['../details'], {relativeTo: this.route});
+    const dialogRef = this.dialog.open(PlayerDetailsComponent, { panelClass: 'custom-dialog-container' });
   }
 }

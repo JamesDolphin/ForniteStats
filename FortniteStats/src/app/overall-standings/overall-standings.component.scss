@@ -1,22 +1,3 @@
-@font-face {
-  font-family: anton;
-  src: url(../../assets/font/Anton-Regular.ttf) format("opentype");
-}
-
-.main-container {
-  width: 100%;
-  height: auto;
-  padding: 15px;
-}
-
-.page-header {
-  font-size: 60px;
-  text-align: center;
-  margin-bottom: 10px;
-  font-weight: 800;
-  font-family: anton;
-}
-
 .stat-container {
   margin: 0 auto;
   padding: 10px;
@@ -28,6 +9,15 @@
 
 .stat-table {
  width: 100%
+}
+
+.page-header {
+  cursor: pointer;
+  font-size: 50px;
+  text-align: center;
+  margin-bottom: 5px;
+  font-weight: 800;
+  font-family: anton;
 }
 
 .stat-header {
@@ -43,15 +33,14 @@ th.mat-sort-header-sorted {
   color: black;
 }
 
-.button-container {
-  margin: 0 auto;
+.clickable-icon {
+  cursor: pointer;
+}
 
-  width: calc(75% + 20px);
-  display: flex;
-  justify-content: flex-end;
+.mat-header-cell {
+  position: sticky;
+  top: 0;
+  background-color: inherit;
 }
 
 
-.button-text {
-  margin-right: 5px;
-}
