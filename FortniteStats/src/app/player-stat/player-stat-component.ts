@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, ViewChild, Inject } from '@angular/core';
-import { MatchRecord } from '../models/matchRecord';
+import { MatchRecord } from '../models/MatchRecord';
 import { MatSort, MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { PlayerRecord } from '../models/PlayerRecord';
 import { Router, ActivatedRoute } from '@angular/router';

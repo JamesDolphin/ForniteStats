@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { PlayerRecord } from '../models/PlayerRecord';
-import { MatchRecord } from '../models/matchRecord';
+import { MatchRecord } from '../models/MatchRecord';
 
 @Injectable({
-  providedIn: "root"
+  providedIn: 'root'
 })
 export class PlayerDataService {
 

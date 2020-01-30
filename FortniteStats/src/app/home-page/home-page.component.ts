@@ -1,11 +1,9 @@
 import { Component } from '@angular/core';
 import { ViewChild } from '@angular/core';
-import { MatchRecord } from '../models/matchRecord';
+import { MatchRecord } from '../models/MatchRecord';
 import { PlayerRecord } from '../models/PlayerRecord';
-import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource, MatDialog, MatDialogRef } from '@angular/material';
 import { PlayerDataService } from '../services/playerData.service';
-import { PlayerDetailsComponent } from '../player-details/player-details-component';
 import { OverallStandingsComponent } from '../overall-standings/overall-standings.component';
 
 @Component({

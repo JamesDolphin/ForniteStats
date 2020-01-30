@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Inject } from '@angular/core';
-import { MatchRecord } from '../models/matchRecord';
+import { MatchRecord } from '../models/MatchRecord';
 import { PlayerRecord } from '../models/PlayerRecord';
 import { PlayerDataService } from '../services/playerData.service';
 import { MAT_DIALOG_DATA } from '@angular/material';
