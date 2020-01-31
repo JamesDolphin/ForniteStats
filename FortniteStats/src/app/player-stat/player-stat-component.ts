@@ -5,7 +5,7 @@ import { PlayerRecord } from '../models/PlayerRecord';
 import { Router, ActivatedRoute } from '@angular/router';
 import { PlayerDataService } from '../services/playerData.service';
 import { PlayerDetailsComponent } from '../player-details/player-details-component';
-import { ExportType } from 'src/app/models/enums'
+import { ExportType } from 'src/app/models/enums';
 
 @Component({
   selector: 'app-player-stat-component',
