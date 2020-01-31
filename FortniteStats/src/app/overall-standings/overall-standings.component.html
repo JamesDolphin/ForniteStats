@@ -31,7 +31,7 @@
       <ng-container matColumnDef="placement">
         <th mat-header-cell *matHeaderCellDef>Average Placement</th>
         <td mat-cell *matCellDef="let player">
-          {{ player.placement / player.matchCount }}
+          {{ player.averagePlacement }}
         </td>
       </ng-container>
 

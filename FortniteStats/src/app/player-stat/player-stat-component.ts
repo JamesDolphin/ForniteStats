@@ -5,6 +5,7 @@ import { PlayerRecord } from '../models/PlayerRecord';
 import { Router, ActivatedRoute } from '@angular/router';
 import { PlayerDataService } from '../services/playerData.service';
 import { PlayerDetailsComponent } from '../player-details/player-details-component';
+import { ExportType } from 'src/app/models/enums'
 
 @Component({
   selector: 'app-player-stat-component',
@@ -31,8 +32,14 @@ export class PlayerStatComponent implements OnInit {
     'settings'
   ];
 
+  public matchName: string;
+
+  public exportEnum = ExportType;
+
   ngOnInit() {
     this.matchData.dataSource.sort = this.sort;
+
+    this.matchName = this.matchData.matchName;
   }
 
   goToPlayerDetail(player: PlayerRecord) {

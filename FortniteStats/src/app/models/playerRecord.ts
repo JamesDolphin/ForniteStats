@@ -5,4 +5,5 @@ export interface PlayerRecord {
   score: number;
   matchCount: number;
   rank: number;
+  averagePlacement: number;
 }

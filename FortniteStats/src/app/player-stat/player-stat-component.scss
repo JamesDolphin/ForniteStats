@@ -30,4 +30,12 @@ th.mat-sort-header-sorted {
   cursor: pointer;
 }
 
+.button-container {
+  margin: 0 auto;
+
+  width: calc(100% - 40px);
+  display: flex;
+  justify-content: flex-end;
+}
+
 

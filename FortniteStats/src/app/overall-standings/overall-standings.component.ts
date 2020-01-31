@@ -53,9 +53,11 @@ export class OverallStandingsComponent implements OnInit {
 
         existingPlayer.matchCount = existingPlayer.matchCount + 1;
         existingPlayer.eliminations =
-          existingPlayer.eliminations + player.eliminations;
+        existingPlayer.eliminations + player.eliminations;
         existingPlayer.score = existingPlayer.score + player.score;
         existingPlayer.placement = existingPlayer.placement + player.placement;
+        existingPlayer.averagePlacement = existingPlayer.placement / existingPlayer.matchCount;
+        existingPlayer.averagePlacement = Math.round( existingPlayer.averagePlacement * 10 ) / 10;
       }
     }
 
