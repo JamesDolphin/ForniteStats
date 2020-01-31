@@ -43,4 +43,11 @@ th.mat-sort-header-sorted {
   background-color: inherit;
 }
 
+.button-container {
+  margin: 0 auto;
+
+  width: calc(100% - 40px);
+  display: flex;
+  justify-content: flex-end;
+}
 

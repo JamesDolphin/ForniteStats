@@ -9,6 +9,7 @@ import { MatTableModule, MatSortModule, MatIconModule, MatTooltipModule, MatDial
 import { PlayerStatComponent } from './player-stat/player-stat-component';
 import { PlayerDetailsComponent } from './player-details/player-details-component';
 import { OverallStandingsComponent } from './overall-standings/overall-standings.component';
+import { MatTableExporterModule } from 'mat-table-exporter';
 
 @NgModule({
    declarations: [
@@ -27,7 +28,8 @@ import { OverallStandingsComponent } from './overall-standings/overall-standings
       MatIconModule,
       MatTooltipModule,
       MatDialogModule,
-      MatButtonModule
+      MatButtonModule,
+      MatTableExporterModule
    ],
    providers: [
     { provide: MatDialogRef, useValue: {} },

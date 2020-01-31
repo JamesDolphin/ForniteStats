@@ -24,7 +24,6 @@ export class HomePageComponent {
   @ViewChild('fileImportInput', { static: false }) fileImportInput: any;
 
   fileChangeListener($event: any): void {
-    console.log($event);
     this.loading = true;
 
     this.playerDataService.matchData = [];
@@ -95,8 +94,6 @@ export class HomePageComponent {
         if (player.placement !== 999) {
           playerData.push(player);
         }
-
-
       }
     }
 

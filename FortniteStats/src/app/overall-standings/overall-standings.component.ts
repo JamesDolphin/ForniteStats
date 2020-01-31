@@ -3,6 +3,7 @@ import { PlayerDataService } from '../services/playerData.service';
 import { PlayerRecord } from '../models/PlayerRecord';
 import { PlayerDetailsComponent } from '../player-details/player-details-component';
 import { MatDialog, MatDialogRef } from '@angular/material';
+import { ExportType } from 'src/app/models/enums';
 
 @Component({
   selector: 'app-overall-standings',
@@ -12,13 +13,15 @@ import { MatDialog, MatDialogRef } from '@angular/material';
 export class OverallStandingsComponent implements OnInit {
   constructor(
     public playerDataService: PlayerDataService,
-    private dialog: MatDialog,
+    public dialog: MatDialog,
     public dialModRef: MatDialogRef<any>
   ) {}
 
   public playerList: Array<PlayerRecord> = [];
 
   public loading = true;
+
+  public exportEnum = ExportType;
 
   public displayedColumns: string[] = [
     'rank',
