@@ -16,7 +16,7 @@ export class HomePageComponent {
     public playerDataService: PlayerDataService,
     private dialog: MatDialog,
     public dialModRef: MatDialogRef<any>
-  ) {}
+  ) { }
   public matches: Array<MatchRecord> = [];
 
   public loading = true;
@@ -60,7 +60,7 @@ export class HomePageComponent {
           this.playerDataService.matchData.push(match);
         };
 
-        reader.onerror = function() {
+        reader.onerror = () => {
           alert('Unable to read ' + file.name);
         };
       } else {
@@ -82,8 +82,6 @@ export class HomePageComponent {
 
       const player = new Object() as PlayerRecord;
 
-      // FOR EACH ROW IN CSV FILE IF THE NUMBER OF COLUMNS
-      // ARE SAME AS NUMBER OF HEADER COLUMNS THEN PARSE THE DATA
       if (data.length === headerLength) {
         player.name = data[0].trim();
         player.placement = Number(data[1].trim());
@@ -94,7 +92,11 @@ export class HomePageComponent {
           player.eliminations
         );
 
-        playerData.push(player);
+        if (player.placement !== 999) {
+          playerData.push(player);
+        }
+
+
       }
     }
 
