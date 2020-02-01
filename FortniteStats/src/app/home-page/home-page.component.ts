@@ -84,8 +84,6 @@ export class HomePageComponent {
         player.placement = Number(data[1].trim());
         player.eliminations = Number(data[2].trim());
 
-        player.score = this.calculatePlayerScore(player.placement, player.eliminations);
-
         if (player.placement === 999) {
           continue;
         }
@@ -107,41 +105,6 @@ export class HomePageComponent {
     }
 
     return playerGroups;
-  }
-
-  calculatePlayerScore(placement: number, eliminations: number) {
-    let elimPoints = 0;
-    let placementPoints = 0;
-
-    if (eliminations < 3) {
-      elimPoints = 0;
-    }
-
-    if (eliminations >= 3 && eliminations <= 4) {
-      elimPoints = 1;
-    }
-
-    if (eliminations >= 5 && eliminations <= 6) {
-      elimPoints = 2;
-    }
-
-    if (eliminations >= 7) {
-      elimPoints = 3;
-    }
-
-    if (placement >= 4 && placement <= 10) {
-      placementPoints = 1;
-    }
-
-    if (placement >= 2 && placement <= 3) {
-      placementPoints = 2;
-    }
-
-    if (placement === 1) {
-      placementPoints = 3;
-    }
-
-    return elimPoints + placementPoints;
   }
 
   generateGroupStats(groups: Array<PlayerGroup>) {
