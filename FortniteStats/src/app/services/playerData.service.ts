@@ -1,18 +1,19 @@
-import { Injectable } from '@angular/core';
-import { PlayerRecord } from '../models/PlayerRecord';
-import { MatchRecord } from '../models/MatchRecord';
+import { Injectable } from "@angular/core";
+import { PlayerRecord } from "../models/PlayerRecord";
+import { MatchRecord } from "../models/MatchRecord";
+import { PlayerGroup } from "../models/PlayerGroup";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
 export class PlayerDataService {
+  constructor() {}
 
-constructor() { }
+  public playerData: PlayerRecord;
 
+  public matchData: Array<MatchRecord>;
 
-public playerData: PlayerRecord;
+  public activePlayer: PlayerRecord;
 
-public matchData: Array<MatchRecord>;
-
-public activePlayer: PlayerRecord;
+  public activeGroup: PlayerGroup;
 }

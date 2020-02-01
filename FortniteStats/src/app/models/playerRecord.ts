@@ -6,4 +6,5 @@ export interface PlayerRecord {
   matchCount: number;
   rank: number;
   averagePlacement: number;
+  averageScore: number;
 }

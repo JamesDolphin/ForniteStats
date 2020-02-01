@@ -1,9 +1,9 @@
-import { PlayerRecord } from './PlayerRecord';
-import { MatTableDataSource } from '@angular/material';
+import { PlayerRecord } from "./PlayerRecord";
+import { MatTableDataSource } from "@angular/material";
+import { PlayerGroup } from "./PlayerGroup";
 
 export interface MatchRecord {
-
-  playerRecords: Array<PlayerRecord>;
+  playerGroups: Array<PlayerGroup>;
 
   matchName: string;
 

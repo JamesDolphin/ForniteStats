@@ -1,19 +1,18 @@
 /* tslint:disable:no-unused-variable */
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
-import { DebugElement } from '@angular/core';
+import { async, ComponentFixture, TestBed } from "@angular/core/testing";
+import { By } from "@angular/platform-browser";
+import { DebugElement } from "@angular/core";
 
-import { OverallStandingsComponent } from './overall-standings.component';
+import { OverallStandingsComponent } from "./overall-standings.component";
 
-describe('OverallStandingsComponent', () => {
+describe("OverallStandingsComponent", () => {
   let component: OverallStandingsComponent;
   let fixture: ComponentFixture<OverallStandingsComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ OverallStandingsComponent ]
-    })
-    .compileComponents();
+      declarations: [OverallStandingsComponent]
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -22,7 +21,7 @@ describe('OverallStandingsComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });

@@ -1,28 +1,16 @@
-<div class='main-container'>
-
-    <div class='player-name'>{{this.playerDataService.activePlayer.name}}</div>
-    <div class='player-stats'>
+<div *ngIf="!loading">
+  <div class="main-container" *ngFor="let player of this.detailPlayers">
+    <div class="player-name">{{player.name}}</div>
+    <div class="player-stats">
       <div>
-        <div class='player-stat'>
-          Matches played: {{this.detailPlayerMatches.length}} &nbsp;&nbsp;  Total Score: {{totalPoints}} &nbsp;&nbsp;  Average Score: {{averagePoints}} &nbsp;&nbsp;  Average Placement: {{averagePlacement}}  &nbsp;&nbsp; Average Eliminations: {{averageElims}}
+        <div class="player-stat">
+          Matches played: {{player.matchCount}} &nbsp;&nbsp; Total Score: {{player.score}} &nbsp;&nbsp; Average Score: {{player.averageScore}} &nbsp;&nbsp; Average Placement:
+          {{player.averagePlacement}} &nbsp;&nbsp; Average Eliminations: {{player.eliminations}}
         </div>
-        <!-- <div class='player-stat'>
-
-        </div>
-        <div class='player-stat'>
-
-        </div>
-        <div class='player-stat'>
-
-        </div>
-        <div class='player-stat'>
-          Average Eliminations: {{averageElims}}
-        </div> -->
       </div>
       <div class="circleBase small-circle logo-text">
         F
       </div>
     </div>
-
-
+  </div>
 </div>

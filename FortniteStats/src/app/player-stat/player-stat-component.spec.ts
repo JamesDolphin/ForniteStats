@@ -1,19 +1,18 @@
 /* tslint:disable:no-unused-variable */
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
-import { DebugElement } from '@angular/core';
+import { async, ComponentFixture, TestBed } from "@angular/core/testing";
+import { By } from "@angular/platform-browser";
+import { DebugElement } from "@angular/core";
 
-import { PlayerStatComponent } from './player-stat-component';
+import { PlayerStatComponent } from "./player-stat-component";
 
-describe('PlayerStatComponentComponent', () => {
+describe("PlayerStatComponentComponent", () => {
   let component: PlayerStatComponent;
   let fixture: ComponentFixture<PlayerStatComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PlayerStatComponent ]
-    })
-    .compileComponents();
+      declarations: [PlayerStatComponent]
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -22,7 +21,7 @@ describe('PlayerStatComponentComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });

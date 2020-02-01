@@ -1,27 +1,24 @@
-import { Component } from '@angular/core';
-import { ViewChild } from '@angular/core';
-import { MatchRecord } from '../models/MatchRecord';
-import { PlayerRecord } from '../models/PlayerRecord';
-import { MatTableDataSource, MatDialog, MatDialogRef } from '@angular/material';
-import { PlayerDataService } from '../services/playerData.service';
-import { OverallStandingsComponent } from '../overall-standings/overall-standings.component';
+import { Component } from "@angular/core";
+import { ViewChild } from "@angular/core";
+import { MatchRecord } from "../models/MatchRecord";
+import { PlayerRecord } from "../models/PlayerRecord";
+import { MatTableDataSource, MatDialog, MatDialogRef } from "@angular/material";
+import { PlayerDataService } from "../services/playerData.service";
+import { OverallStandingsComponent } from "../overall-standings/overall-standings.component";
+import { PlayerGroup } from "../models/PlayerGroup";
 
 @Component({
-  selector: 'app-home-page',
-  templateUrl: './home-page.component.html',
-  styleUrls: ['./home-page.component.scss']
+  selector: "app-home-page",
+  templateUrl: "./home-page.component.html",
+  styleUrls: ["./home-page.component.scss"]
 })
 export class HomePageComponent {
-  constructor(
-    public playerDataService: PlayerDataService,
-    private dialog: MatDialog,
-    public dialModRef: MatDialogRef<any>
-  ) { }
+  constructor(public playerDataService: PlayerDataService, private dialog: MatDialog, public dialModRef: MatDialogRef<any>) {}
   public matches: Array<MatchRecord> = [];
 
   public loading = true;
 
-  @ViewChild('fileImportInput', { static: false }) fileImportInput: any;
+  @ViewChild("fileImportInput", { static: false }) fileImportInput: any;
 
   fileChangeListener($event: any): void {
     this.loading = true;
@@ -36,7 +33,7 @@ export class HomePageComponent {
 
         match.isVisible = true;
 
-        match.matchName = (file.name as string).replace('.csv', '');
+        match.matchName = (file.name as string).replace(".csv", "");
         const input = $event.target;
         const reader = new FileReader();
         reader.readAsText(file);
@@ -47,24 +44,23 @@ export class HomePageComponent {
 
           const headersRow = this.getHeaderArray(matchDataArray);
 
-          match.playerRecords = this.getDataRecordsArrayFromCSVFile(
-            matchDataArray,
-            headersRow.length
-          );
+          match.playerGroups = this.getDataRecordsArrayFromCSVFile(matchDataArray, headersRow.length);
 
-          match.playerRecords.sort((a, b) => b.score - a.score);
+          this.generateGroupStats(match.playerGroups);
 
-          match.dataSource = new MatTableDataSource(match.playerRecords);
+          match.playerGroups.sort((a, b) => b.groupScore - a.groupScore);
+
+          match.dataSource = new MatTableDataSource(match.playerGroups);
 
           this.playerDataService.matchData.push(match);
         };
 
         reader.onerror = () => {
-          alert('Unable to read ' + file.name);
+          alert("Unable to read " + file.name);
         };
       } else {
         this.matches = [];
-        alert('Please import valid .csv file.');
+        alert("Please import valid .csv file.");
         this.fileReset();
         break;
       }
@@ -76,8 +72,10 @@ export class HomePageComponent {
   getDataRecordsArrayFromCSVFile(csvRecordsArray: any, headerLength: any) {
     const playerData = [];
 
+    const playerGroups: Array<PlayerGroup> = [];
+
     for (let i = 0; i < csvRecordsArray.length; i++) {
-      const data = (csvRecordsArray[i] as string).split(',');
+      const data = (csvRecordsArray[i] as string).split(",");
 
       const player = new Object() as PlayerRecord;
 
@@ -86,10 +84,21 @@ export class HomePageComponent {
         player.placement = Number(data[1].trim());
         player.eliminations = Number(data[2].trim());
 
-        player.score = this.calculatePlayerScore(
-          player.placement,
-          player.eliminations
-        );
+        player.score = this.calculatePlayerScore(player.placement, player.eliminations);
+
+        if (player.placement === 999) {
+          continue;
+        }
+
+        if (playerGroups.find(x => x.groupPlacement === player.placement)) {
+          playerGroups.find(x => x.groupPlacement === player.placement).playerRecords.push(player);
+        } else {
+          const newGroup = new Object() as PlayerGroup;
+          newGroup.playerRecords = [];
+          newGroup.groupPlacement = player.placement;
+          newGroup.playerRecords.push(player);
+          playerGroups.push(newGroup);
+        }
 
         if (player.placement !== 999) {
           playerData.push(player);
@@ -97,7 +106,7 @@ export class HomePageComponent {
       }
     }
 
-    return playerData;
+    return playerGroups;
   }
 
   calculatePlayerScore(placement: number, eliminations: number) {
@@ -135,14 +144,59 @@ export class HomePageComponent {
     return elimPoints + placementPoints;
   }
 
+  generateGroupStats(groups: Array<PlayerGroup>) {
+    const groupSize = Math.max.apply(
+      Math,
+      groups.map(function(o) {
+        return o.playerRecords.length;
+      })
+    );
+
+    if (groupSize === 3) {
+      for (const group of groups) {
+        group.groupPlacement = Math.min.apply(
+          Math,
+          group.playerRecords.map(function(o) {
+            return o.placement;
+          })
+        );
+
+        group.groupElims = group.playerRecords.map(player => player.eliminations).reduce((prev, next) => prev + next);
+
+        group.groupScore = this.generateTrioGroupStats(group);
+
+        group.groupName = this.generateGroupName(group);
+      }
+    }
+
+    if (groupSize === 1) {
+      for (const group of groups) {
+        group.groupPlacement = Math.min.apply(
+          Math,
+          group.playerRecords.map(function(o) {
+            return o.placement;
+          })
+        );
+
+        group.groupScore = this.generateSoloGroupStats(group.playerRecords[0]);
+
+        group.groupElims = group.playerRecords.map(player => player.eliminations).reduce((prev, next) => prev + next);
+
+        group.groupName = this.generateGroupName(group);
+      }
+    }
+
+    return groups;
+  }
+
   // CHECK IF FILE IS A VALID CSV FILE
   isCSVFile(file: any) {
-    return file.name.endsWith('.csv');
+    return file.name.endsWith(".csv");
   }
 
   // GET CSV FILE HEADER COLUMNS
   getHeaderArray(csvRecordsArr: any) {
-    const headers = (csvRecordsArr[0] as string).split(',');
+    const headers = (csvRecordsArr[0] as string).split(",");
     const headerArray = [];
     for (let j = 0; j < headers.length; j++) {
       headerArray.push(headers[j]);
@@ -151,12 +205,82 @@ export class HomePageComponent {
   }
 
   fileReset() {
-    this.fileImportInput.nativeElement.value = '';
+    this.fileImportInput.nativeElement.value = "";
   }
 
   openOverallStandings() {
     const dialogRef = this.dialog.open(OverallStandingsComponent, {
-      panelClass: 'custom-dialog-container'
+      panelClass: "custom-dialog-container"
     });
+  }
+
+  generateTrioGroupStats(group: PlayerGroup) {
+    // Victory Royale: 15 points
+    // 2nd: 12 points
+    // 3rd-4th: 9 points
+    // 5th-8th: 6 points
+    // 9th-12th: 3 points
+
+    let placementPoints = 0;
+
+    if (group.groupPlacement >= 9 && group.groupPlacement <= 12) {
+      placementPoints = 6;
+    }
+
+    if (group.groupPlacement >= 5 && group.groupPlacement <= 8) {
+      placementPoints = 6;
+    }
+
+    if (group.groupPlacement >= 3 && group.groupPlacement <= 4) {
+      placementPoints = 9;
+    }
+
+    if (group.groupPlacement === 2) {
+      placementPoints = 12;
+    }
+
+    if (group.groupPlacement === 1) {
+      placementPoints = 15;
+    }
+
+    return group.groupElims + placementPoints;
+  }
+
+  generateSoloGroupStats(player: PlayerRecord) {
+    let placementPoints = 0;
+
+    if (player.placement >= 16 && player.placement <= 25) {
+      placementPoints = 3;
+    }
+
+    if (player.placement >= 6 && player.placement <= 15) {
+      placementPoints = 3;
+    }
+
+    if (player.placement >= 2 && player.placement <= 5) {
+      placementPoints = 7;
+    }
+
+    if (player.placement === 1) {
+      placementPoints = 10;
+    }
+
+    return player.eliminations + placementPoints;
+  }
+
+  generateGroupName(group: PlayerGroup) {
+    if (group.playerRecords.length > 1) {
+      group.playerRecords.forEach(player => {
+        if (group.groupName == null) {
+          group.groupName = player.name;
+        } else {
+          group.groupName = group.groupName + ` + ${player.name}`;
+        }
+      });
+    } else {
+      group.groupName = group.playerRecords[0].name;
+    }
+
+    return group.groupName;
   }
 }
