@@ -215,16 +215,10 @@ export class HomePageComponent {
   }
 
   generateTrioGroupStats(group: PlayerGroup) {
-    // Victory Royale: 15 points
-    // 2nd: 12 points
-    // 3rd-4th: 9 points
-    // 5th-8th: 6 points
-    // 9th-12th: 3 points
-
     let placementPoints = 0;
 
     if (group.groupPlacement >= 9 && group.groupPlacement <= 12) {
-      placementPoints = 6;
+      placementPoints = 3;
     }
 
     if (group.groupPlacement >= 5 && group.groupPlacement <= 8) {
@@ -254,7 +248,7 @@ export class HomePageComponent {
     }
 
     if (player.placement >= 6 && player.placement <= 15) {
-      placementPoints = 3;
+      placementPoints = 5;
     }
 
     if (player.placement >= 2 && player.placement <= 5) {
