@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, ViewChild, Inject } from "@angular/core";
 import { MatchRecord } from "../models/MatchRecord";
-import { MatSort, MatDialog, MatDialogRef, MAT_DIALOG_DATA } from "@angular/material";
+import { MatSort, MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatTableDataSource } from "@angular/material";
 import { PlayerRecord } from "../models/PlayerRecord";
 import { Router, ActivatedRoute } from "@angular/router";
 import { PlayerDataService } from "../services/playerData.service";
@@ -21,20 +21,25 @@ export class PlayerStatComponent implements OnInit {
 
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
-  public displayedColumns: string[] = ["name", "placement", "eliminations", "score", "settings"];
+  public displayedColumns: string[] = ["groupName", "groupPlacement", "groupElims", "groupScore", "settings"];
 
   public matchName: string;
 
   public exportEnum = ExportType;
 
-  public dataSource: any;
+  public dataSource: MatTableDataSource<any> = null;
+  public loading: boolean = true;
 
   ngOnInit() {
-    this.dataSource = this.matchData.playerGroups.sort((a, b) => b.groupScore - a.groupScore);
+    this.loading = true;
+    this.dataSource = new MatTableDataSource(this.matchData.playerGroups.sort((a, b) => b.groupScore - a.groupScore));
+    //this.dataSource = new MatTableDataSource(this.matchData.playerGroups);
 
     this.dataSource.sort = this.sort;
 
     this.matchName = this.matchData.matchName;
+
+    this.loading = false;
   }
 
   goToGroupDetail(group: PlayerGroup) {
